@@ -12,17 +12,17 @@ class Modal extends Component {
   };
 
   componentDidMount() {
-    window.addEventListener('keydown', this.handlerOnKeyDown);
-    window.addEventListener('click', this.handlerOnClick);
+    window.addEventListener('keydown', this.onKeyDownClick);
+    window.addEventListener('click', this.onClickBackdrop);
   }
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.handlerOnKeyDown);
-    window.removeEventListener('click', this.handlerOnClick);
+    window.removeEventListener('keydown', this.onKeyDownClick);
+    window.removeEventListener('click', this.onClickBackdrop);
   }
-  handlerOnKeyDown = ({ code }) => {
+  onKeyDownClick = ({ code }) => {
     if (code === 'Escape') this.props.closeModal();
   };
-  handlerOnClick = ({ target }) => {
+  onClickBackdrop = ({ target }) => {
     if (target.nodeName === 'DIV') this.props.closeModal();
   };
 

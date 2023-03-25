@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import { Component } from 'react';
+
 import {
   Searchbar,
   SearchForm,
@@ -6,29 +8,27 @@ import {
   SearchFormButtonLabel,
   SearchFormInput,
 } from './SearchBar.styled';
-import PropTypes from 'prop-types';
 
 class SearchBar extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
   };
   state = {
-    searchQuery: '',
+    value: '',
   };
 
-  handlerOnChange = ({ target }) => {
-    this.setState({ searchQuery: target.value });
+  handlerOnChange = ({ target: { value } }) => {
+    this.setState({ value });
   };
 
   handlerOnSubmit = event => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const { searchQuery } = this.state;
+    // const form = event.currentTarget;
+    const { value } = this.state;
 
-    this.setState({ searchQuery: '' });
-    form.reset();
-    // console.dir(this.state);
-    this.props.onSubmit(searchQuery);
+    this.setState({ value: '' });
+
+    this.props.onSubmit(value);
   };
 
   render() {
@@ -37,7 +37,7 @@ class SearchBar extends Component {
         <SearchForm onSubmit={this.handlerOnSubmit}>
           <SearchFormButton
             type="submit"
-            disabled={this.state.searchQuery.trim().length === 0}
+            disabled={this.state.value.trim().length === 0}
           >
             <SearchFormButtonLabel />
           </SearchFormButton>
@@ -47,8 +47,8 @@ class SearchBar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            name="searchQuery"
-            value={this.state.searchQuery}
+            name="value"
+            value={this.state.value}
             onChange={this.handlerOnChange}
           />
         </SearchForm>
